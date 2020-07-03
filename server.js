@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 const http = require("http");
 const app = express();
 const server = http.createServer(app);
@@ -6,6 +7,8 @@ const socket = require("socket.io");
 const io = socket(server);
 
 const users = {};
+
+app.options('*', cors()) // include before other routes
 
 io.on('connection', socket => {
     if (!users[socket.id]) {
